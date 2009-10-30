@@ -1,6 +1,16 @@
+<% @subtitle = "for <em>#{h(params[:query])}</em>" %>
+
 <% @title = "search" %>
-<% if @gems %>
-  <% @subtitle = "for <em>#{h(params[:query])}</em>" %>
+<% unless @match.blank? %>
+  <p class="entries">Exact Match</p>
+  <div class="gems border">
+    <ol>
+      <%= render @match %>
+    </ol>
+  </div>
+<% end %>
+
+<% if @gems %>  
   <p class="entries">
     <%= page_entries_info @gems, :entry_name => 'gem' %>
   </p>

@@ -298,6 +298,12 @@ class RubygemTest < ActiveSupport::TestCase
       assert Rubygem.search('APPLE').include?(@apple_pie)
       assert Rubygem.search('PIE').include?(@apple_pie)
     end
+    
+    should 'find exact matches of rubygems by name on #search_exact' do
+      assert Rubygem.search_exact('apple').include?(@apple_pie)
+      
+      assert ! Rubygem.search_exact('app').include?(@apple_pie)      
+    end
   end
 
   context "building a new Rubygem" do

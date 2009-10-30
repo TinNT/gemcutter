@@ -26,6 +26,12 @@ class Rubygem < ActiveRecord::Base
     :order      => "name asc" }
   }
 
+  named_scope :search_exact, lambda { |query| {
+    :conditions => ["upper(name) = upper(:query)",
+      {:query => "#{query}"}],
+    :limit      => 1,
+    :include    => [:versions]}  }
+
   def validate
     if name =~ /^[\d]+$/
       errors.add "Name must include at least one letter."
